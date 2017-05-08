@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GNIB appointment viewer</title>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $('document').ready(function() {
+        $.ajax({
+            datatype: "json",
+            cache: false,
+            type: "GET",
+            url: "https://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/(getAppsNear)?openpage",
+            data: "dt=&cat=Study&sbcat=All&typ=Renewal",
+            async: true,
+            success: function(data) {
+                for(let obj of data.slots) {
+                    console.log(obj.time);
+                    $('#msg').append('<h1>' + obj.time + '</h1>');
+                }
+            }
+        });
+    });
+</script>
+<div id="msg">
+</div>
+</body>
+</html>
