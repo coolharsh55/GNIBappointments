@@ -9,9 +9,16 @@ parses the json using python.
 
 Download either of the scripts -
  * `query.sh` for bash+python
- * `query.py` for python (needs `requests`)
-and execute it. For python, the script works for `v2.7/v3+`
+ * `query.py` for python (needs `requests`) works for `v2.7/v3+`
+ * `chrome extension` -> in development, but works at a basic level
 
+#### Chrome Extension
+The chrome extension can be loaded using developer tools -> unpacked extension. 
+It should show a default icon on the bar. 
+Visiting the appointment page will trigger the scrip,
+and an alert box will popup displaying the available appointments.
+
+At a basic level, it works using AJAX requests. 
 There is another file - `query.html` that contains the jQuery code
 to pull the appointments from within the browser. For it to work,
 CORS needs to be _disabled_. If not, you can copy the jQuery bits
