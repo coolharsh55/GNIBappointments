@@ -10,13 +10,23 @@ parses the json using python.
 Download either of the scripts -
  * `query.sh` for bash+python
  * `query.py` for python (needs `requests`) works for `v2.7/v3+`
- * `chrome extension` -> in development, but works at a basic level
+ * `chrome extension` -> in development, but works.
 
 #### Chrome Extension
 The chrome extension can be loaded using developer tools -> unpacked extension. 
-It should show a default icon on the bar. 
-Visiting the appointment page will trigger the scrip,
-and an alert box will popup displaying the available appointments.
+It should show a calendar icon on the bar. Clicking it will open a popup with a quick link to the appointment booking site.
+Visiting the appointment page will trigger the extension, and it shows a bar on top with four options:
+
+* **Check Appointments** - will show a popup with available appointments
+* **Load Data** - will load stored form data from browser storage
+* **Save Data** - will save current form data
+* **Ask appointment** - once the form is filled, this will open the closest appointment to today
+
+The ideal workflow is to save the form at some time (fill it completely) and then use the extension
+to check whether there are any appointments available. If there are, click load data, and the form
+should be filled completely. Then you can click on ask appointment and select one that suits.
+
+> TODO: show status of available appointments directly in the sticky bar on top
 
 At a basic level, it works using AJAX requests. 
 There is another file - `query.html` that contains the jQuery code

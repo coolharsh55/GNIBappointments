@@ -1,0 +1,29 @@
+#interface-sticky-header {
+	position:fixed;
+	top:0px;
+	width:100%;
+	height:50px;
+	z-index:100;
+	background:#333;
+	color:white;
+	display: flex;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#interface-sticky-header p {
+	color: white;
+}
+
+#interface-btn-check-appointments {
+
+}
+
+.interface-btn {
+	font-family: Georgia;
+  	color: #AA3399;
+  	text-decoration: none;
+	margin-right: 10px;
+	margin-left: 10px;
+	padd
+}
