@@ -5,9 +5,9 @@
 
 # Script to parse appointment timings from GNIB website
 # https://burghquayregistrationoffice.inis.gov.ie/
-# Reason: because filling out the ENTIRE form just to check for 
-# appointments is both silly and stupid. And on closer inspection, 
-# it is not like ALL the information is required for getting the 
+# Reason: because filling out the ENTIRE form just to check for
+# appointments is both silly and stupid. And on closer inspection,
+# it is not like ALL the information is required for getting the
 # appointments. Plus, it is never clear when the appointments will
 # be available. Hence this script.
 
@@ -27,7 +27,7 @@ headers = {
     'Connection': 'keep-alive',
 }
 
-# Parameters from the js script at 
+# Parameters from the js script at
 # https://burghquayregistrationoffice.inis.gov.ie
 # /Website/AMSREG/AMSRegWeb.nsf/AppForm.js
 params = (
@@ -48,7 +48,8 @@ requests.packages.urllib3.disable_warnings(
 # make the request
 # verify=False --> disable SSL verification
 response = requests.get(
-    'https://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/(getAppsNear)', 
+    'https://burghquayregistrationoffice.inis.gov.ie/'
+    + 'Website/AMSREG/AMSRegWeb.nsf/(getAppsNear)',
     headers=headers, params=params, verify=False)
 
 # check if we have a good response
