@@ -21,7 +21,7 @@ def home():
 		if diff.days > 0 or diff.seconds > 1800:
 			get_appointments()
 	return template(
-    	'index', appointments=appointments, last_checked=last_checked)
+    	'source/views/index', appointments=appointments, last_checked=last_checked)
 
 
 def get_appointments():
