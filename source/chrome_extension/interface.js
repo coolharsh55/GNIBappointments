@@ -1,4 +1,7 @@
 $(document).ready(function() {
+
+    check_appointments();
+
 	var div = $('<div id="interface-sticky-header">'
  	+	'<div id="interface-title">GNIB Extension</div>'
  	+	'<button id="interface-btn-check-appointments" class="interface-btn">Check Appointments</button>'
