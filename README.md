@@ -1,18 +1,22 @@
 # GNIBappointments
-Appointment finder for GNIB (Ireland)
+Appointment finder for GNIB/VISA (Ireland)
 
 ## Using it
-There are two scripts, one python and the other bash+python. Since python
+
+### Heroku webapp
+
+There is a heroku webapp live at [https://gnibappt.herokuapp.com/](https://gnibappt.herokuapp.com/)
+which essentially runs the `python` script in the background and displays
+the results in a browser.
+
+### Scripts
+
+There are two scripts, `python` and `bash+python`. Since python
 is installed pretty much by default everywhere (you suck Windows), that
 one is more _nice_. The bash one pulls the request using `curl` and then
 parses the json using python.
 
-Download either of the scripts -
- * `query.sh` for bash+python
- * `query.py` for python (needs `requests`) works for `v2.7/v3+`
- * `chrome extension` -> in development, but works.
-
-#### Chrome Extension
+### Chrome Extension
 The chrome extension can be loaded using developer tools -> unpacked extension. 
 It should show a calendar icon on the bar. Clicking it will open a popup with a quick link to the appointment booking site.
 Visiting the appointment page will trigger the extension, and it shows a bar on top with four options:
@@ -25,8 +29,6 @@ Visiting the appointment page will trigger the extension, and it shows a bar on 
 The ideal workflow is to save the form at some time (fill it completely) and then use the extension
 to check whether there are any appointments available. If there are, click load data, and the form
 should be filled completely. Then you can click on ask appointment and select one that suits.
-
-> TODO: show status of available appointments directly in the sticky bar on top
 
 At a basic level, it works using AJAX requests. 
 There is another file - `query.html` that contains the jQuery code
@@ -99,3 +101,6 @@ the requests need `Access-Control` and `Origin` headers.
 In the scripts, I've used the _get appointments nearest to today_ since that 
 is more useful (to me) and is defined in `getEarliestApps()` with a differnt
 URI as `"/" + stPath + "/(getAppsNear)?openpage"`.
+
+The method for visa appointments is also quite similar. First, the dates are
+requested, and then the appointments for each date are requested.
