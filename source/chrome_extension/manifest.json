@@ -13,7 +13,12 @@
   "content_scripts": [
     {
         "matches": ["https://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/AppSelect?OpenForm"],
-        "js": ["jquery.min.js",  "sweetalert2.min.js", "appointments.js", "interface.js"],
+        "js": ["jquery.min.js",  "sweetalert2.min.js", "gnib_appointments.js", "gnib_interface.js"],
+        "css": ["interface.css", "sweetalert2.min.css"]
+    },
+    {
+        "matches": ["https://reentryvisa.inis.gov.ie/website/INISOA/IOA.nsf/AppointmentSelection?OpenForm"],
+        "js": ["jquery.min.js",  "sweetalert2.min.js", "visa_appointments.js", "visa_interface.js"],
         "css": ["interface.css", "sweetalert2.min.css"]
     }
   ],
