@@ -41,7 +41,7 @@ def home():
             get_gnib_appointments()
             get_visa_appointments()
     return template(
-        'source/views/index',
+        'heroku_webapp/views/index',
         gnib_appointments=gnib_appointments,
         visa_appointments=visa_appointments,
         last_checked=last_checked)
