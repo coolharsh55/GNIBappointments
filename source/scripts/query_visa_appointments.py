@@ -32,7 +32,7 @@ headers = {
 # /website/INISOA/IOA.nsf/AppForm.js
 params = (
     ('openagent', ''),  # BLANK
-    ('type', 'I') #  I signifies individual
+    ('type', 'I')  #  I signifies individual
 )
 
 # Add cipher for request

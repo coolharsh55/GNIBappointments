@@ -7,22 +7,36 @@
 <body>
 <article class="athelas">
 	<div class="vh-100 dt w-100 tc bg-dark-gray white cover">
-		<div class="dtc v-mid">
+		<div class="dtc pv3">
 			<header class="white-70">
-      	<h2 class="f6 fw1 ttu tracked mb2 lh-title">last refreshed at {{ last_checked }}</h2>
-      	<a class="link" href="https://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/AppSelect?OpenForm">
-      		<span class="light-yellow">go to booking site</span>
-        </a>
+      	<h2 class="f4 fw1 ttu tracked mb2 lh-title">last refreshed at {{ last_checked }}</h2>
+        <div class="light-yellow">
+            <span>go to </span>
+            <a class="link red" href="https://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/AppSelect?OpenForm">GNIB</a> 
+            <span>site | go to </span>
+            <a class="link red" href="https://reentryvisa.inis.gov.ie/website/INISOA/IOA.nsf/AppointmentSelection?OpenForm">VISA</a> 
+            <span>site</span><br/>
+            <p>timings are not official and may not reflect actual appointments</p>
+        </div>
   		</header>
-  		<h1 class="f1 f-headline-l fw1 i white-60">GNIB Appointments</h1>
-  		% if appointments is None:
-  		<h3 class="f2 f-subheadline-l fw3 white-80">Sorry, no appointments are currently available</h3>
+  		<h1 class="f1 fw1 i gold">Appointments</h1>
+        <div class="f2 f-subheadline fw2 yellow">GNIB</div>
+  		% if gnib_appointments is None:
+  		<p class="red f4">Sorry, no appointments are currently available</p>
   		% else:
-  		% for appointment in appointments:
-  		<h5 class="f2 fw3 white">{{ appointment }}</h5>
+  		% for appointment in gnib_appointments:
+  		<p class="f4 fw3 light-blue">{{ appointment }}</p>
   		% end
   		% end
-      <footer class="white-30">
+        <div class="f2 f-subheadline fw2 yellow">VISA</div>
+  		% if visa_appointments is None:
+  		<p class="red f4">Sorry, no appointments are currently available</p>
+  		% else:
+  		% for appointment in visa_appointments:
+  		<p class="f4 fw3 light-blue">{{ appointment }}</p>
+  		% end
+  		% end
+      <footer class="white-30 pv3">
       <a class="link b f3 f2-ns dim white-40 lh-solid" href="https://github.com/coolharsh55/GNIBappointments">source code</a><br/>
       <a class="link b f5 f5-ns dim white-20" href="https://harshp.com/">made by harshvardhan pandit</a>
     </footer>
