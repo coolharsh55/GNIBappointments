@@ -99,7 +99,6 @@ def get_gnib_appointments():
         gnib_appointments = None
         return
 
-    # print gnib_appointments
     # Format is:
     # {
     #   'id': 'str',
@@ -108,7 +107,7 @@ def get_gnib_appointments():
     gnib_appointments = []
     now = datetime.now()
     for appointment in data:
-        date = datetime.strptime(appointment['time'], '%d/%m/%Y %I:%M %p')
+        date = datetime.strptime(appointment['time'], '%d %B %Y - %H:%M')
         if now < date:
             gnib_appointments.append(appointment['time'])
 
@@ -157,7 +156,6 @@ def get_visa_appointments():
         visa_appointments = None
         return
 
-    # print appointments
     # Format is:
     # {'dates': ['DD-MM-YYYY', ...]}
     url = 'https://reentryvisa.inis.gov.ie/website/inisoa/ioa.nsf/(getapps4dt)'
@@ -192,7 +190,8 @@ def get_visa_appointments():
         for appointment in data:
             date = datetime.strptime(appointment['time'], '%d/%m/%Y %I:%M %p')
             if now < date:
-                visa_appointments.append(appointment['time'])
+                date = date.strftime('%d %B %Y %H:%M')
+                visa_appointments.append(date)
 
 
 if __name__ == '__main__':

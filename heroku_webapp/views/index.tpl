@@ -20,6 +20,7 @@
         </div>
   		</header>
   		<h1 class="f1 fw1 i gold">Appointments</h1>
+
         <div class="f2 f-subheadline fw2 yellow">GNIB</div>
   		% if gnib_appointments is None:
   		<p class="red f4">Sorry, no appointments are currently available</p>
@@ -28,6 +29,7 @@
   		<p class="f4 fw3 light-blue">{{ appointment }}</p>
   		% end
   		% end
+        
         <div class="f2 f-subheadline fw2 yellow">VISA</div>
   		% if visa_appointments is None:
   		<p class="red f4">Sorry, no appointments are currently available</p>
@@ -36,6 +38,7 @@
   		<p class="f4 fw3 light-blue">{{ appointment }}</p>
   		% end
   		% end
+      
       <footer class="white-30 pv3">
       <a class="link b f3 f2-ns dim white-40 lh-solid" href="https://github.com/coolharsh55/GNIBappointments">source code</a><br/>
       <a class="link b f5 f5-ns dim white-20" href="https://harshp.com/">made by harshvardhan pandit</a>
