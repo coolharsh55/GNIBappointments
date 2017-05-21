@@ -40,7 +40,8 @@
   		% end
       
       <footer class="white-30 pv3">
-      <a class="link b f3 f2-ns dim white-40 lh-solid" href="https://github.com/coolharsh55/GNIBappointments">source code</a><br/>
+      <a class="link b f3 f2-ns dim white-60 lh-solid" href="https://harshp.com/dev/projects/gnib-appointments/">published blog posts</a><br/>
+      <a class="link b f4 f2-ns dim white-40" href="https://github.com/coolharsh55/GNIBappointments">source code</a><br/>
       <a class="link b f5 f5-ns dim white-20" href="https://harshp.com/">made by harshvardhan pandit</a>
     </footer>
 		</div>
