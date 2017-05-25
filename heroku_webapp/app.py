@@ -67,13 +67,13 @@ def update_appointments():
     if diff.days > 0 or diff.seconds > 1800:
         get_gnib_appointments()
         get_visa_appointments()
-    return
+    return diff
 
 
 @route('/')
 def home():
     """handles heroku webpage"""
-    update_appointments()
+    diff = update_appointments()
     return template(
         'heroku_webapp/views/index',
         gnib_appointments=gnib_appointments,
