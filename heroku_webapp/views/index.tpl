@@ -9,7 +9,7 @@
 	<div class="vh-100 dt w-100 tc bg-dark-gray white cover">
 		<div class="dtc pv3">
 			<header class="white-70">
-      	<h2 class="f4 fw1 ttu tracked mb2 lh-title">last refreshed at {{ last_checked }}</h2>
+      	<h2 class="f4 fw1 mb2">last refreshed {{ last_checked }}mins ago</h2>
         <div class="light-yellow">
             <span>go to </span>
             <a class="link red" href="https://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/AppSelect?OpenForm">GNIB</a> 

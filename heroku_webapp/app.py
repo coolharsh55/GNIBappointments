@@ -3,6 +3,7 @@ from bottle import route
 from bottle import run
 from bottle import template
 from datetime import datetime
+import pytz
 import requests
 
 # Add cipher for request
@@ -34,16 +35,19 @@ def home():
         get_gnib_appointments()
         get_visa_appointments()
     else:
-        now = datetime.now()
+        now = datetime.now(pytz.timezone('Europe/Dublin'))
         diff = now - last_checked
         if diff.days > 0 or diff.seconds > 1800:
             get_gnib_appointments()
             get_visa_appointments()
+    now = datetime.now(pytz.timezone('Europe/Dublin'))
+    diff = now - last_checked
+    diff = diff.seconds // 60
     return template(
         'heroku_webapp/views/index',
         gnib_appointments=gnib_appointments,
         visa_appointments=visa_appointments,
-        last_checked=last_checked)
+        last_checked=diff)
 
 
 def get_gnib_appointments():
@@ -84,20 +88,20 @@ def get_gnib_appointments():
     # If there are no gnib_appointments, then the empty key is set
     if data.get('empty', None) is not None:
         gnib_appointments = None
-        last_checked = datetime.now()
+        last_checked = datetime.now(pytz.timezone('Europe/Dublin'))
         return
 
     # There are gnib_appointments, and are in the key 'slots'
     data = data.get('slots', None)
     if data is None:
         gnib_appointments = None
-        last_checked = datetime.now()
+        last_checked = datetime.now(pytz.timezone('Europe/Dublin'))
         return
 
     # This should not happen, but a good idea to check it anyway
     if len(data) == 0:
         gnib_appointments = None
-        last_checked = datetime.now()
+        last_checked = datetime.now(pytz.timezone('Europe/Dublin'))
         return
 
     # Format is:
@@ -107,7 +111,7 @@ def get_gnib_appointments():
     # }
     gnib_appointments = []
     now = datetime.now()
-    last_checked = datetime.now()
+    last_checked = datetime.now(pytz.timezone('Europe/Dublin'))
     for appointment in data:
         date = datetime.strptime(appointment['time'], '%d %B %Y - %H:%M')
         if now < date:
@@ -145,20 +149,20 @@ def get_visa_appointments():
     # If there are no appointments, then the empty key is set
     if data.get('empty', None) is not None:
         visa_appointments = None
-        last_checked = datetime.now()
+        last_checked = datetime.now(pytz.timezone('Europe/Dublin'))
         return
 
     # There are appointments, and are in the key 'dates'
     data = data.get('dates', None)
     if data is None:
         visa_appointments = None
-        last_checked = datetime.now()
+        last_checked = datetime.now(pytz.timezone('Europe/Dublin'))
         return
 
     # This should not happen, but a good idea to check it anyway
     if len(data) == 0:
         visa_appointments = None
-        last_checked = datetime.now()
+        last_checked = datetime.now(pytz.timezone('Europe/Dublin'))
         return
 
     # Format is:
@@ -197,7 +201,7 @@ def get_visa_appointments():
             if now < date:
                 date = date.strftime('%d %B %Y %H:%M')
                 visa_appointments.append(date)
-    last_checked = datetime.now()
+    last_checked = datetime.now(pytz.timezone('Europe/Dublin'))
 
 
 if __name__ == '__main__':
