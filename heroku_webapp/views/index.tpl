@@ -26,7 +26,7 @@
   		<p class="red f4">Sorry, no appointments are currently available</p>
   		% else:
   		% for appointment in gnib_appointments:
-  		<p class="f4 fw3 light-blue">{{ appointment }}</p>
+  		<p class="f4 fw3 light-blue"><a href="https://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/AppSelect?OpenForm" class="link f4 fw3 light-blue">{{ appointment }}</a></p>
   		% end
   		% end
         
@@ -35,7 +35,7 @@
   		<p class="red f4">Sorry, no appointments are currently available</p>
   		% else:
   		% for appointment in visa_appointments:
-  		<p class="f4 fw3 light-blue">{{ appointment }}</p>
+  		<p class="f4 fw3 light-blue"><a href="https://reentryvisa.inis.gov.ie/website/INISOA/IOA.nsf/AppointmentSelection?OpenForm" class="link f4 fw3 light-blue">{{ appointment }}</a></p>
   		% end
   		% end
       
