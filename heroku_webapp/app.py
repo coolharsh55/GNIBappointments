@@ -61,14 +61,19 @@ if PAGE_ACCESS_TOKEN is None or VERIFICATION_TOKEN is None:
     raise Exception('env tokens not loaded')
 
 
-@route('/')
-def home():
-    """handles heroku webpage"""
+def update_appointments():
     now = datetime.now(pytz.timezone('Europe/Dublin'))
     diff = now - last_checked
     if diff.days > 0 or diff.seconds > 1800:
         get_gnib_appointments()
         get_visa_appointments()
+    return
+
+
+@route('/')
+def home():
+    """handles heroku webpage"""
+    update_appointments()
     return template(
         'heroku_webapp/views/index',
         gnib_appointments=gnib_appointments,
@@ -269,22 +274,25 @@ def handle_messages():
             continue
         # let's start handling the text responses
         text = message['text']
+        update_appointments()
         # the user wants GNIB appointments
         if text in ('gnib', 'GNIB', 'g', 'G'):
             now = datetime.now(pytz.timezone('Europe/Dublin'))
             diff = now - last_checked
-            diff = diff.seconds // 60
             response = '  \n'.join((
-                'checked ' + str(diff // 60) + 'mins ago',
+                'checked ' + str(diff.seconds // 60) + 'mins ago',
                 *gnib_appointments))
         # the user wants VISA appointments
         elif text in ('visa', 'VISA', 'v', 'V'):
             now = datetime.now(pytz.timezone('Europe/Dublin'))
             diff = now - last_checked
-            diff = diff.seconds // 60
             response = '  \n'.join((
-                'checked' + str(diff // 60) + 'mins ago',
+                'checked ' + str(diff.seconds // 60) + 'mins ago',
                 *visa_appointments))
+        elif text in ('help', 'h', 'HELP', '?'):
+            response = '  \n'.join((
+                'Use g/G/gnib/GNIB to get GNIB appointments',
+                'Use v/H/visa/VISA to get VISA appointments'))
         # something else, ignore it
         else:
             response = 'GVisaBot does not react to that'
