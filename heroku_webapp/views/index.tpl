@@ -22,7 +22,7 @@
   		<h1 class="f1 fw1 i gold">Appointments</h1>
 
         <div class="f2 f-subheadline fw2 yellow">GNIB</div>
-  		% if gnib_appointments is None:
+  		% if not gnib_appointments:
   		<p class="red f4">Sorry, no appointments are currently available</p>
   		% else:
   		% for appointment in gnib_appointments:
@@ -31,7 +31,7 @@
   		% end
         
         <div class="f2 f-subheadline fw2 yellow">VISA</div>
-  		% if visa_appointments is None:
+  		% if not visa_appointments:
   		<p class="red f4">Sorry, no appointments are currently available</p>
   		% else:
   		% for appointment in visa_appointments:
