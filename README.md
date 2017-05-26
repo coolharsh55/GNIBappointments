@@ -1,7 +1,15 @@
 # GNIBappointments
 Appointment finder for GNIB/VISA (Ireland)
 
+Find the blog for this project at [harshp.com](https://harshp.com/dev/projects/gnib-appointments/).
+
 ## Using it
+
+### Facebook Bot
+
+There is a Facebook bot by the name **@GVisaBot** 
+with a [Facebook Page](https://www.facebook.com/GVisaBot/). The bot replies with the available
+appointments.
 
 ### Heroku webapp
 
