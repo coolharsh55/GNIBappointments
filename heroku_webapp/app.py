@@ -61,6 +61,11 @@ if PAGE_ACCESS_TOKEN is None or VERIFICATION_TOKEN is None:
     raise Exception('env tokens not loaded')
 
 
+@route('/privacy_policy')
+def privacy_policy():
+    return template('heroku_webapp/views/privacy_policy.tpl')
+
+
 def update_appointments():
     now = datetime.now(pytz.timezone('Europe/Dublin'))
     diff = now - last_checked
