@@ -285,22 +285,31 @@ def handle_messages():
             now = datetime.now(pytz.timezone('Europe/Dublin'))
             diff = now - last_checked
             response = '  \n'.join((
+                'GNIB appointments',
                 'checked ' + str(diff.seconds // 60) + 'mins ago',
                 *gnib_appointments))
+            if len(gnib_appointments) == 0:
+                response += '. No GNIB appointments available.'
         # the user wants VISA appointments
         elif text in ('visa', 'VISA', 'v', 'V'):
             now = datetime.now(pytz.timezone('Europe/Dublin'))
             diff = now - last_checked
             response = '  \n'.join((
+                'VISA appointments',
                 'checked ' + str(diff.seconds // 60) + 'mins ago',
                 *visa_appointments))
+            if len(visa_appointments) == 0:
+                response += '. No VISA appointments available.'
         elif text in ('help', 'h', 'HELP', '?'):
             response = '  \n'.join((
                 'Use g/G/gnib/GNIB to get GNIB appointments',
                 'Use v/H/visa/VISA to get VISA appointments'))
         # something else, ignore it
         else:
-            response = 'GVisaBot does not react to that'
+            response = '  \n'.join((
+                'Try again.',
+                'Use g/G/gnib/GNIB to get GNIB appointments',
+                'Use v/H/visa/VISA to get VISA appointments'))
         # send the response back
         data = requests.post(
             "https://graph.facebook.com/v2.6/me/messages",
