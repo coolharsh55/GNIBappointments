@@ -97,7 +97,7 @@ def get_gnib_appointments():
     params = (
         ('openpage', ''),  # BLANK
         ('dt', ''),  # PARSED, but is always blank
-        ('cat', 'Study'),  # Category
+        ('cat', 'Work'),  # Category
         ('sbcat', 'All'),  # Sub-Category
         ('typ', 'Renewal'),  # Type
     )
