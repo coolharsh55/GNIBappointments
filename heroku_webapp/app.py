@@ -277,40 +277,43 @@ def handle_messages():
         # if there is no text, we don't handle it
         if message.get('text', None) is None:
             continue
-        # let's start handling the text responses
-        text = message['text']
-        update_appointments()
-        # the user wants GNIB appointments
-        if text in ('gnib', 'GNIB', 'g', 'G'):
-            now = datetime.now(pytz.timezone('Europe/Dublin'))
-            diff = now - last_checked
-            response = '  \n'.join((
-                'GNIB appointments',
-                'checked ' + str(diff.seconds // 60) + 'mins ago',
-                *gnib_appointments))
-            if len(gnib_appointments) == 0:
-                response += '. No GNIB appointments available.'
-        # the user wants VISA appointments
-        elif text in ('visa', 'VISA', 'v', 'V'):
-            now = datetime.now(pytz.timezone('Europe/Dublin'))
-            diff = now - last_checked
-            response = '  \n'.join((
-                'VISA appointments',
-                'checked ' + str(diff.seconds // 60) + 'mins ago',
-                *visa_appointments))
-            if len(visa_appointments) == 0:
-                response += '. No VISA appointments available.'
-        elif text in ('help', 'h', 'HELP', '?'):
-            response = '  \n'.join((
-                'Use g/G/gnib/GNIB to get GNIB appointments',
-                'Use v/H/visa/VISA to get VISA appointments'))
-        # something else, ignore it
-        else:
-            response = '  \n'.join((
-                'Try again.',
-                'Use g/G/gnib/GNIB to get GNIB appointments',
-                'Use v/H/visa/VISA to get VISA appointments'))
+        # # let's start handling the text responses
+        # text = message['text']
+        # update_appointments()
+        # # the user wants GNIB appointments
+        # if text in ('gnib', 'GNIB', 'g', 'G'):
+        #     now = datetime.now(pytz.timezone('Europe/Dublin'))
+        #     diff = now - last_checked
+        #     response = '  \n'.join((
+        #         'GNIB appointments',
+        #         'checked ' + str(diff.seconds // 60) + 'mins ago',
+        #         *gnib_appointments))
+        #     if len(gnib_appointments) == 0:
+        #         response += '. No GNIB appointments available.'
+        # # the user wants VISA appointments
+        # elif text in ('visa', 'VISA', 'v', 'V'):
+        #     now = datetime.now(pytz.timezone('Europe/Dublin'))
+        #     diff = now - last_checked
+        #     response = '  \n'.join((
+        #         'VISA appointments',
+        #         'checked ' + str(diff.seconds // 60) + 'mins ago',
+        #         *visa_appointments))
+        #     if len(visa_appointments) == 0:
+        #         response += '. No VISA appointments available.'
+        # elif text in ('help', 'h', 'HELP', '?'):
+        #     response = '  \n'.join((
+        #         'Use g/G/gnib/GNIB to get GNIB appointments',
+        #         'Use v/H/visa/VISA to get VISA appointments'))
+        # # something else, ignore it
+        # else:
+        #     response = '  \n'.join((
+        #         'Try again.',
+        #         'Use g/G/gnib/GNIB to get GNIB appointments',
+        #         'Use v/H/visa/VISA to get VISA appointments'))
         # send the response back
+        response = '''This service is no longer active, and will soon be shut
+        down. Please use the web utility at 
+        https://harshp.com/dev/utils/gnib-appointments/'''
         data = requests.post(
             "https://graph.facebook.com/v2.6/me/messages",
             params={"access_token": PAGE_ACCESS_TOKEN},
