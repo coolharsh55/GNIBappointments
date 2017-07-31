@@ -27,19 +27,20 @@
 # -k    disable SSL protection
 # -L    follow redirects
 # -s    do not show progress bars
-curl \
-    -k \
-    -L \
-    -s \
-    -H "User-agent: script/python" \
-    -H "Accept: */*" \
-    -H "Accept-Language: en-US,en;q=0.5" \
-    -H "Accept-Encoding: gzip, deflate, br" \
-    -H "Origin: null" \
-    -H "Connection: keep-alive" \
-    "http://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/(getAppsNear)?openpage=&dt=&cat=Study&sbcat=All&typ=Renewal" | 
-    \
-python -c '''
+function retrieve_appointments() {
+    curl \
+        -k \
+        -L \
+        -s \
+        -H "User-agent: script/python" \
+        -H "Accept: */*" \
+        -H "Accept-Language: en-US,en;q=0.5" \
+        -H "Accept-Encoding: gzip, deflate, br" \
+        -H "Origin: null" \
+        -H "Connection: keep-alive" \
+        "http://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/(getAppsNear)?openpage=&dt=&cat=$1&sbcat=All&typ=Renewal" | 
+        \
+    python -c '''
 import sys
 import json
 
@@ -72,3 +73,9 @@ if len(data) == 0:
 for appointment in data:
     print(appointment["time"])
 '''
+}
+
+echo "study appointments"
+retrieve_appointments "Study"
+echo "work appointments"
+retrieve_appointments "Work"

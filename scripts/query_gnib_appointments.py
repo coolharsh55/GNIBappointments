@@ -30,13 +30,6 @@ headers = {
 # Parameters from the js script at
 # https://burghquayregistrationoffice.inis.gov.ie
 # /Website/AMSREG/AMSRegWeb.nsf/AppForm.js
-params = (
-    ('openpage', ''),  # BLANK
-    ('dt', ''),  # PARSED, but is always blank
-    ('cat', 'Study'),  # Category
-    ('sbcat', 'All'),  # Sub-Category
-    ('typ', 'Renewal'),  # Type
-)
 
 # Add cipher for request
 # Looked up using curl --verbose
@@ -45,44 +38,59 @@ requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS += ':DES-CBC3-SHA'
 requests.packages.urllib3.disable_warnings(
     requests.packages.urllib3.exceptions.InsecureRequestWarning)
 
-# make the request
-# verify=False --> disable SSL verification
-response = requests.get(
-    'https://burghquayregistrationoffice.inis.gov.ie/'
-    + 'Website/AMSREG/AMSRegWeb.nsf/(getAppsNear)',
-    headers=headers, params=params, verify=False)
 
-# check if we have a good response
-if response.status_code != 200:
-    print('error')
-    sys.exit(1)
+def get_appointments(appointment_type):
+    params = (
+        ('openpage', ''),  # BLANK
+        ('dt', ''),  # PARSED, but is always blank
+        ('cat', appointment_type),  # Category
+        ('sbcat', 'All'),  # Sub-Category
+        ('typ', 'Renewal'),  # Type
+    )
+    # make the request
+    # verify=False --> disable SSL verification
+    response = requests.get(
+        'https://burghquayregistrationoffice.inis.gov.ie/'
+        + 'Website/AMSREG/AMSRegWeb.nsf/(getAppsNear)',
+        headers=headers, params=params, verify=False)
 
-# sanity checks
-data = response.json()
-# error key is set
-if data.get('error', None) is not None:
-    raise Exception('ERROR: %s' % data['error'])
+    # check if we have a good response
+    if response.status_code != 200:
+        print('error')
+        sys.exit(1)
 
-# If there are no appointments, then the empty key is set
-if data.get('empty', None) is not None:
-    print('No appointments available')
-    sys.exit(0)
+    # sanity checks
+    data = response.json()
+    # error key is set
+    if data.get('error', None) is not None:
+        raise Exception('ERROR: %s' % data['error'])
 
-# There are appointments, and are in the key 'slots'
-data = data.get('slots', None)
-if data is None:
-    raise Exception('Data is NULL')
+    # If there are no appointments, then the empty key is set
+    if data.get('empty', None) is not None:
+        print('No appointments available')
+        sys.exit(0)
 
-# This should not happen, but a good idea to check it anyway
-if len(data) == 0:
-    print('No appointments available')
-    sys.exit(0)
+    # There are appointments, and are in the key 'slots'
+    data = data.get('slots', None)
+    if data is None:
+        raise Exception('Data is NULL')
 
-# print appointments
-# Format is:
-# {
-#   'id': 'str',
-#   'time': 'str'
-# }
-for appointment in data:
-    print(appointment['time'])
+    # This should not happen, but a good idea to check it anyway
+    if len(data) == 0:
+        print('No appointments available')
+        sys.exit(0)
+
+    # print appointments
+    # Format is:
+    # {
+    #   'id': 'str',
+    #   'time': 'str'
+    # }
+    print('{} appointments:'.format(appointment_type))
+    for appointment in data:
+        print(appointment['time'])
+
+
+get_appointments('Study')
+get_appointments('Work')
+get_appointments('Other')
