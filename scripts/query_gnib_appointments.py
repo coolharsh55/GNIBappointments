@@ -39,13 +39,13 @@ requests.packages.urllib3.disable_warnings(
     requests.packages.urllib3.exceptions.InsecureRequestWarning)
 
 
-def get_appointments(appointment_type):
+def get_appointments(appointment_type, renewal):
     params = (
         ('openpage', ''),  # BLANK
         ('dt', ''),  # PARSED, but is always blank
         ('cat', appointment_type),  # Category
         ('sbcat', 'All'),  # Sub-Category
-        ('typ', 'Renewal'),  # Type
+        ('typ', renewal),  # Type
     )
     # make the request
     # verify=False --> disable SSL verification
@@ -57,7 +57,7 @@ def get_appointments(appointment_type):
     # check if we have a good response
     if response.status_code != 200:
         print('error')
-        sys.exit(1)
+        return
 
     # sanity checks
     data = response.json()
@@ -68,17 +68,18 @@ def get_appointments(appointment_type):
     # If there are no appointments, then the empty key is set
     if data.get('empty', None) is not None:
         print('No appointments available')
-        sys.exit(0)
+        return
 
     # There are appointments, and are in the key 'slots'
     data = data.get('slots', None)
     if data is None:
-        raise Exception('Data is NULL')
+        print('Data is NULL')
+        return
 
     # This should not happen, but a good idea to check it anyway
     if len(data) == 0:
         print('No appointments available')
-        sys.exit(0)
+        return
 
     # print appointments
     # Format is:
@@ -91,6 +92,7 @@ def get_appointments(appointment_type):
         print(appointment['time'])
 
 
-get_appointments('Study')
-get_appointments('Work')
-get_appointments('Other')
+for appointment_type in ('Study', 'Work', 'Other'):
+    for renewal in ('New', 'Renewal'):
+        print(appointment_type, renewal)
+        get_appointments(appointment_type, renewal)
