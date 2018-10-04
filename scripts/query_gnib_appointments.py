@@ -114,8 +114,8 @@ def openChrome():
 
 
 while True :
-    for appointment_type in ('Work'):
-        for renewal in ('Renewal'):
+    for appointment_type in ('Study','Work','Other'):
+        for renewal in ('New','Renewal'):
             print(appointment_type, renewal)
             get_appointments(appointment_type, renewal)
             time.sleep(10)
