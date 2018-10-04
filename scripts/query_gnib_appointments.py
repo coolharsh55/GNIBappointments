@@ -15,7 +15,7 @@
 import requests
 # sys is used to exit, I've read this is 'graceful'
 import sys
-
+import time
 import webbrowser
 
 # URL to open to book the appointments
@@ -114,8 +114,8 @@ def openChrome():
 
 
 while True :
-    for appointment_type in ('Study', 'Work', 'Other'):
-        for renewal in ('New', 'Renewal'):
+    for appointment_type in ('Work'):
+        for renewal in ('Renewal'):
             print(appointment_type, renewal)
             get_appointments(appointment_type, renewal)
             time.sleep(10)
