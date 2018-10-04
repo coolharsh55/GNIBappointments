@@ -21,18 +21,6 @@ import webbrowser
 # URL to open to book the appointments
 url = 'https://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/AppSelect?OpenForm'
 
-##################### 
- 
-# Mac OS
-
-
-# Windows
-
-
-# Linux
-
-
-
 # headers to send
 # They don't really matter, except for the CORS bits
 headers = {
@@ -123,7 +111,11 @@ def openChrome():
         chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     webbrowser.get(chrome_path).open(url)
 
-for appointment_type in ('Study', 'Work', 'Other'):
-    for renewal in ('New', 'Renewal'):
-        print(appointment_type, renewal)
-        get_appointments(appointment_type, renewal)
+
+
+while True :
+    for appointment_type in ('Study', 'Work', 'Other'):
+        for renewal in ('New', 'Renewal'):
+            print(appointment_type, renewal)
+            get_appointments(appointment_type, renewal)
+            time.sleep(10)
