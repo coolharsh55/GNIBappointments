@@ -16,6 +16,23 @@ import requests
 # sys is used to exit, I've read this is 'graceful'
 import sys
 
+import webbrowser
+
+# URL to open to book the appointments
+url = 'https://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/AppSelect?OpenForm'
+
+##################### 
+ 
+# Mac OS
+
+
+# Windows
+
+
+# Linux
+
+
+
 # headers to send
 # They don't really matter, except for the CORS bits
 headers = {
@@ -50,8 +67,7 @@ def get_appointments(appointment_type, renewal):
     # make the request
     # verify=False --> disable SSL verification
     response = requests.get(
-        'https://burghquayregistrationoffice.inis.gov.ie/'
-        + 'Website/AMSREG/AMSRegWeb.nsf/(getAppsNear)',
+        'https://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/(getAppsNear)?readform&cat=Work&sbcat=All&typ=Renewal&k=8E5BA57FC982BC1F011C033DF2DB88FE&p=C5FB2F437DD0BDEA1B9D5FF8BC4E42C9&_=1538635897999',
         headers=headers, params=params, verify=False)
 
     # check if we have a good response
@@ -90,7 +106,22 @@ def get_appointments(appointment_type, renewal):
     print('{} appointments:'.format(appointment_type))
     for appointment in data:
         print(appointment['time'])
+    openChrome()
 
+# Function to open chrome based of the operating system
+def openChrome():
+    chrome_path = ""
+    platform = sys.platform
+    if platform == "linux" or platform == "linux2":
+        # linux
+        chrome_path = '/usr/bin/google-chrome %s'
+    elif platform == "darwin":
+        # OS X
+        chrome_path = 'open -a /Applications/Google\ Chrome.app %s'
+    elif platform == "win32":
+        # Windows
+        chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
+    webbrowser.get(chrome_path).open(url)
 
 for appointment_type in ('Study', 'Work', 'Other'):
     for renewal in ('New', 'Renewal'):
