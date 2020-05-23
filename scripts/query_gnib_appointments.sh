@@ -38,7 +38,7 @@ function retrieve_appointments() {
         -H "Accept-Encoding: gzip, deflate, br" \
         -H "Origin: null" \
         -H "Connection: keep-alive" \
-        "http://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/(getAppsNear)?openpage=&dt=&cat=$1&sbcat=All&typ=Renewal" | 
+        "https://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/(getAppsNear)?readformcat=All&sbcat=All&typ=Renewal&k=EA49F15AB7CD3500C431783282ACDBA6&p=A53D399E6BF0496E7DE2D76C4E9095FD" 
         \
     python -c '''
 import sys

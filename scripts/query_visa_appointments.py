@@ -59,6 +59,7 @@ def get_appointments(appointment_type):
 
     # sanity checks
     data = response.json()
+    print(data)
     # error key is set
     if data.get('error', None) is not None:
         raise Exception('ERROR: %s' % data['error'])
