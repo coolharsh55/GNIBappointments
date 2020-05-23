@@ -1,0 +1,91 @@
+REQUIRED :
+Linux Machine with Internet Enabled as well as Email relay opened for Sending email to ur domain.
+
+
+========== FLOW ========== 
+1). SET in Cron
+===============================================================>
+[dineshr@noi-dineshr<1020> ~]$ crontab -l|tail -1
+*/1 * * * * /bin/bash /home/dineshr/GNIB_appointment_email.sh
+
+
+2). EMAIL Notification Script ( modified usich is calling main script )
+==============================================================================>
+
+[dineshr@noi-dineshr<1022> ~]$ cat /home/dineshr/GNIB_appointment_email.sh
+
+/bin/bash /home/dineshr/GNIB.sh > /tmp/GNIB_Approintments.txt
+
+GNIB_File_Count=`cat /tmp/GNIB_Approintments.txt|grep -v "work appointments" | grep -v "No appointments available" |grep -v "August" | grep -v "July"|wc -l`
+
+#GNIB_File_Count=`cat /tmp/GNIB_Approintments.txt|grep -v "work appointments" | grep -v "No appointments available"|wc -l`
+
+if [ $GNIB_File_Count -gt 0 ]; then
+mailx -r dineshr@xxxxxx.com -s "GNIB Available - Go and Book immediately for -- `cat /tmp/GNIB_Approintments.txt|tail -1`" dineshr@xxxxxx.com < /tmp/GNIB_Approintments.txt
+fi
+
+
+
+2). Callable script which is doing search on available appointments 
+==============================================================================>
+
+[dineshr@noi-dineshr<1027> ~]$ cat /home/dineshr/GNIB.sh
+function retrieve_appointments() {
+    curl \
+        -k \
+        -L \
+        -s \
+        -H "User-agent: script/python" \
+        -H "Accept: */*" \
+        -H "Accept-Language: en-US,en;q=0.5" \
+        -H "Accept-Encoding: gzip, deflate, br" \
+        -H "Origin: null" \
+        -H "Connection: keep-alive" \
+        "http://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/(getAppsNear)?openpage=&dt=&cat=$1&sbcat=All&typ=Renewal" |
+        \
+    python -c '''
+import sys
+import json
+data = json.load(sys.stdin)
+if data.get("error", None) is not None:
+    raise Exception("ERROR: %s" % data["error"])
+if data.get("empty", None) is not None:
+    print("No appointments available")
+    sys.exit(0)
+data = data.get("slots", None)
+if data is None:
+    raise Exception("Data is NULL")
+if len(data) == 0:
+    print("No appointments available")
+    sys.exit(0)
+for appointment in data:
+    print(appointment["time"])
+'''
+}
+echo "work appointments"
+retrieve_appointments "Work"
+
+
+
+ABOVE SCRIPT WILL SHARE THE WORK APPOINMENTS
+IF YOU NEED FOR STUDY NOTIFICATIONs - Just edit above Script (/home/dineshr/GNIB.sh) as follows  
+==============================================================================>
+UNHASH THE STUDY PARAMS AND HASH WORK ONE 
+===============================================
+#echo "study appointments"
+#retrieve_appointments "Study"
+echo "work appointments"
+retrieve_appointments "Work"
+
+
+ABOVE SCRIPT WILL SHARE THE WORK APPOINTMENTS === FOR SEPT 2018 ONWARDS ===========
+IF YOU NEED FOR STUDY NOTIFICATIONs - Just edit above Script   (/home/dineshr/GNIB_appointment_email.sh) as follows
+==============================================================================>
+IN BELOW LINE ADD THE MONTH TO AVOID ( LIKE JULY & AUG AVAOIDED HERE )
+=====================================================================
+GNIB_File_Count=`cat /tmp/GNIB_Approintments.txt|grep -v "work appointments" | grep -v "No appointments available" |grep -v "August" | grep -v "July"|wc -l`
+
+
+KEEP CHECKING YOUR EMAIL AND once a slot is emailed .... Book Immediately by going to .......
+========================================>
+https://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/AppSelect?OpenForm
